@@ -1,6 +1,6 @@
 mount /dev/sda1 /mnt
 mkdir /mnt2
-mount /dev/sdb1 /mnt2
+mount /dev/sdb1 /mnt2 (whatever external storage you have, you can use that. you could also use Hetzner storage box (CIFS))
 rm -rf /mnt2/*
 rsync -avxHAX --progress /mnt/ /mnt2/
 umount /dev/sda1
