@@ -1,0 +1,13 @@
+mount /dev/sda1 /mnt
+mkdir /mnt2
+mount /dev/sdb1 /mnt2
+rm -rf /mnt2/*
+rsync -avxHAX --progress /mnt/ /mnt2/
+umount /dev/sda1
+cfdisk /dev/sda #resize sda1 (rootfs), create a new partition for DRBD partition
+blkid /dev/sda1
+mkfs.ext4 /dev/sda1
+tune2fs -U 0b89d9d9-fcc9-4db1-b5e8-5b3f2fea1584 /dev/sda1 #get the UUID from previous blkid)
+mount /dev/sda1 /mnt
+rsync -avxHAX --progress /mnt2/ /mnt/
+If sshd doesn't starts. Check the Console of the VM/VPS and excute "ssh-keygen -A" that will create a new hostkey files. After creating those ssh files, "systemctl restart sshd".
