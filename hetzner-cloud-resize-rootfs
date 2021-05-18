@@ -11,3 +11,9 @@ tune2fs -U 0b89d9d9-fcc9-4db1-b5e8-5b3f2fea1584 /dev/sda1 #get the UUID from pre
 mount /dev/sda1 /mnt
 rsync -avxHAX --progress /mnt2/ /mnt/
 If sshd doesn't starts. Check the Console of the VM/VPS and excute "ssh-keygen -A" that will create a new hostkey files. After creating those ssh files, "systemctl restart sshd".
+
+vi /mnt/etc/cloud/cloud.cfg.d/90-hetznercloud.cfg #edit the cloud init file of hetzner
+Since the hetzner cloud uses the cloud-init configuration for creating their VMs in the backend. we also need to make some modification in the cloud-init configuration. we need to edit the file "/mnt/etc/cloud/cloud.cfg.d/90-hetznercloud.cfg" and see the configuration called
+ - [ resizefs, always ]
+we would need to modify as below
+ - [ resizefs, false ]
